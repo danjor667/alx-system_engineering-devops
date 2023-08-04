@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# scriot to display all the process
+ps -auxf
