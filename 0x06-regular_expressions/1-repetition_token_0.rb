@@ -2,4 +2,5 @@
 #special match
 
 rg = /hbt{2,5}n/
-ARGV[0] =~ rg
+matches = ARGV[0].scan(rg)
+puts matches.join(rg)

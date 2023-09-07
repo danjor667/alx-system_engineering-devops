@@ -2,4 +2,5 @@
 #matching one character
 
 rg = /hb{0,1}tn/
-ARGV[0] =~ rg
+matches = ARGV[0].scan(rg)
+puts matches.join
