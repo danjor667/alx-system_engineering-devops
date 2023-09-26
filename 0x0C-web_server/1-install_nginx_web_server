@@ -6,10 +6,10 @@ apt-get -y install nginx
 # adding a html page
 echo "Hello World!" > /var/www/html/index.html
 # checking if service is running
-pids=$(pgrep nginx)
-if [ -n "$pids" ];
+state=$(pgrep nginx)
+if [ -n "$state" ];
 then
-	service nginx start
+	sudo service nginx start
 else
-	service nginx restart
+	sudo service nginx restart
 fi
