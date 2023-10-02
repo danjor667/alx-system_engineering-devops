@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# installing nginx web server and adding a costum header in the response
+
+sudo apt-get update
+sudo apt-get install -y nginx
+text=\
+"server {
+	 listen 80 default_server;
+         listen [::]:80 default_server;
+
+         root /var/www/html;
+         index index.html index.htm;
+         server_name _;
+         location / {
+         try_files \$uri \$uri/ =404;
+         }
+	 add_header X-Served-By \$hostname;
+}"
+file='/etc/nginx/sites-available/default'
+backup='/etc/nginx/sites-available/default.backup'
+#creating a backupfile
+mv '$file' '$backup'
+echo -e  "$text" > '$file'
+state=$(pgrep nginx)
+if [ -n '$state' ];
+then
+	service nginx restart
+else
+	service nginx start
+fi
+if [ $? -eq 0 ];
+then
+	echo "update succesfull"
+else
+	echo "failed"
+fi
