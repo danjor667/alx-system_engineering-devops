@@ -16,21 +16,17 @@ text=\
          }
 	 add_header X-Served-By \$hostname;
 }"
-file='/etc/nginx/sites-available/default'
-backup='/etc/nginx/sites-available/default.backup'
+file="/etc/nginx/sites-available/default"
+backup="/etc/nginx/sites-available/default.backup"
+
 #creating a backupfile
-mv '$file' '$backup'
-echo -e  "$text" > '$file'
+mv "$file" "$backup"
+echo -e  "$text" > "$file"
 state=$(pgrep nginx)
-if [ -n '$state' ];
+if [ -n "$state" ];
 then
 	service nginx restart
 else
 	service nginx start
 fi
-if [ $? -eq 0 ];
-then
-	echo "update succesfull"
-else
-	echo "failed"
-fi
+echo "done!!!"
