@@ -6,6 +6,7 @@ apt-get -y install nginx
 
 # adding a html page
 echo "Hello World!" > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
 
 CONFIG=\
 "server {
@@ -15,11 +16,22 @@ CONFIG=\
         root /var/www/html;
 
         index index.html index.htm index.nginx-debian.html;
+
+	error_page 404 /custom_404.html;
+
 	server_name _;
+
 	rewrite ^/redirect_me(.*)$ http://www.google.com/ permanent;
+
+	location = /custom_404.html {
+		root /usr/share/nginx/html;
+		internal;
+	}
+
         location / {
                 try_files \$uri \$uri/ =404;
 	}
+	add_header X-Served-By \$hostname;
 }"
 
 echo -e "$CONFIG" > /etc/nginx/sites-enabled/default
