@@ -13,10 +13,10 @@ def number_of_subscribers(subreddit):
     Sends a query to the reddit api to get the nhmber of subscribers
     for a particular subreddit
     """
-    if subreddit is None or not isinstance(subreddit, str):
+    if subreddit is None:
         return (0)
     endpoint = 'https://www.reddit.com'
-    headers = {'user-agent': 'Testapi/1.0 by glenmiracle18'}
+    headers = {'user-agent': 'Testapi/1.0 by danjor667'}
     info = requests.get('{}/r/{}/about.json'.format(
         endpoint,
         subreddit), headers=headers, allow_redirects=False)
